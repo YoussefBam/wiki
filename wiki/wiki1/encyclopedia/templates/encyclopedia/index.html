@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    {% if page_name == "index" %}
+        <h1>All Pages</h1>
+        <ul>
+            {%for entry in entries %}
+                <li>{{ entry }}</li>
+            {% endfor %}
+        </ul>
+    {% elif page_name == "content_page" %}
+        {% if content%}
+            {{content | safe}}
+        {% else %}
+            <h1>Error: {{title}} page is not found!</h1>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
