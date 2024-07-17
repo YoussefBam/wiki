@@ -9,14 +9,14 @@ def index(request):
         "entries": util.list_entries(),"page_name":page_name
     })
 
-#generate page 
+#generate content page 
 def generate(request,title):
     page_name="content_page"
     try:
         #get contents of md file and convert it to html
         content=markdown(util.get_entry(title))
     except:
-        #case where title is not found
+        #case where title's content page is not found
         content=None
     finally:
         return render(request,"encyclopedia/index.html",{
