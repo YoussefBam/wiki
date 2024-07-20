@@ -37,6 +37,41 @@ def search(request):
         return render(request,"encyclopedia/index.html",{
             "content":content,"title":title, "page_name":page_name, "entries": util.list_entries()
         })
+
+def view_create(request):
+    return render(request,"encyclopedia/add.html")
+
+def create(request):
+    #get all titles in list
+    title_list=util.list_entries()
+    #get title of desired page to create
+    title=request.POST.get('title')
+
+    #case where the title exists (returning error)
+    if title in title_list :
+        error=True 
+        return render(request,"encyclopedia/add.html", {"error":error, "title":title
+
+        })
+    #case where title doesn't exist
+    else :
+        #get content
+        content=request.POST.get('content')
+        #save content in markdown file.
+        util.save_entry(title, content)
+        #convert content to html
+        content=markdown(util.get_entry(title))
+        #validate page name so index conditonal will be true and will output the contents.
+        page_name="content_page"
+        return render(request,"encyclopedia/index.html",{
+            "content":content,"title":title, "page_name":page_name
+        })
+
+    
+
+ 
+    
+    
     
 
 
