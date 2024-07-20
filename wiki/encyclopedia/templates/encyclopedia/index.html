@@ -27,6 +27,20 @@
         {% else %}
             <h1>Error: {{title}} page is not found!</h1>
         {% endif %}
+    {% elif page_name == "searched_page" %}
+        {% if content%}
+            {{content | safe}}
+        {% else %}
+            <ul>
+                {% for entry in entries%}
+                    {%if title in entry%} 
+                        <li><a href="../wiki/{{entry}}">{{ entry }}</a></li>
+                    {%endif%}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
     {% endif %}
+
 
 {% endblock %}

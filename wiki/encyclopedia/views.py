@@ -22,7 +22,22 @@ def generate(request,title):
         return render(request,"encyclopedia/index.html",{
             "content":content,"title":title, "page_name":page_name
         })
-
+    
+#dirty fix that i'm not happy with 
+def search(request):
+    title=request.GET.get('title')
+    page_name="searched_page"
+    try:
+        #get contents of md file and convert it to html
+        content=markdown(util.get_entry(title))
+    except:
+        #case where title's content page is not found
+        content=None
+    finally:
+        return render(request,"encyclopedia/index.html",{
+            "content":content,"title":title, "page_name":page_name, "entries": util.list_entries()
+        })
+    
 
 
 
