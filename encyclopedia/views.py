@@ -68,9 +68,24 @@ def create(request):
         })
 
     
+def edit(request,title):
+        
+        #get contents of md file and convert it to html
+        content=util.get_entry(title)
+        return render(request,"encyclopedia/edit.html", {"content":content,"title":title
+} )
 
- 
-    
+
+def save(request,title):
+    content=request.POST.get('content')
+    util.save_entry(title, content)
+    #convert content to html
+    content=markdown(util.get_entry(title))
+    #validate page name so index conditonal will be true and will output the contents.
+    page_name="content_page"
+    return render(request,"encyclopedia/index.html",{
+        "content":content,"title":title, "page_name":page_name
+    })
     
     
 

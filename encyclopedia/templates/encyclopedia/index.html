@@ -22,6 +22,9 @@
             {% endfor %}
         </ul>
     {% elif page_name == "content_page" %}
+        <form action="../edit/{{title}}" >
+            <input type="submit" value="Edit page">
+        </form>
         {% if content%}
             {{content | safe}}
         {% else %}
@@ -29,6 +32,9 @@
         {% endif %}
     {% elif page_name == "searched_page" %}
         {% if content%}
+        <form action="../edit/{{title}}">
+            <input type="submit" value="Edit page">
+        </form>
             {{content | safe}}
         {% else %}
             <ul>
