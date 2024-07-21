@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from markdown2 import markdown
 from . import util
+from random import choice
 
 
 def index(request):
@@ -87,7 +88,14 @@ def save(request,title):
         "content":content,"title":title, "page_name":page_name
     })
     
-    
+def random(request):
+    title_list=util.list_entries()
+    title = choice(title_list)
+    page_name="content_page"
+    content=markdown(util.get_entry(title))
+    return render(request,"encyclopedia/index.html",{
+        "content":content,"title":title, "page_name":page_name
+    })
 
 
 
