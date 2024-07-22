@@ -22,31 +22,27 @@
             {% endfor %}
         </ul>
     {% elif page_name == "content_page" %}
+        {% if content%}
         <form action="../edit/{{title}}" >
             <input type="submit" value="Edit page">
         </form>
-        {% if content%}
             {{content | safe}}
         {% else %}
-            <h1>Error: "{{title}}" encyclopedia is not found!</h1>
+            {% if not search_error %}
+                <h1>Error: "{{title}}" encyclopedia is not found!</h1>
+            {% endif %}
         {% endif %}
-    {% elif page_name == "searched_page" %}
-        {% if content%}
-        <form action="../edit/{{title}}">
-            <input type="submit" value="Edit page">
-        </form>
-            {{content | safe}}
-        {% else %}
-            <ul>
-                {% for entry in entries%}
-                    {%if title in entry%} 
-                        <li><a href="../wiki/{{entry}}">{{ entry }}</a></li>
-                    {%endif%}
-                {% endfor %}
-            </ul>
-        {% endif %}
+    {% elif page_name == "search_error" %}
+        <h1>Possible matches</h1>
+        <ul>
+            {% for entry in entries%}
+            
+                {%if title in entry%} 
+                    <li><a href="../wiki/{{entry}}">{{ entry }}</a></li>
+                {%endif%}
+            {% endfor %}
+        </ul>
 
     {% endif %}
-
 
 {% endblock %}
